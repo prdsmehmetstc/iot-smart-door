@@ -148,18 +148,16 @@ def api_control(request):
                         personnel = Personnels.objects.get(id=card.personnel_id)
 
                         if Cards.objects.filter(identity=card_identity, banned_doors__in=door_id).count() > 0:
-                            sms_content = "{}({}) yasaklı olduğu {} kapısında giriş denemesi yaptı. {}".format(str(personnel), str(personnel.phone_number), str(door), now)
-                            sms_api_result = requests.get('https://api.makdos.com/v2/plus/system/sms_send?phonenumber=' + phonenumber + '&message=' + sms_content)
                             res = {
                                 'status': False,
                                 'card_identity': card_identity,
                                 'door_name': str(door),
                                 'personnel_name': str(personnel),
                                 'message': reddedildi,
-                                'reason': yasakli_kapi + ' Yöneticiye SMS gönderildi.',
+                                'reason': yasakli_kapi,
                                 'sms_status_code': sms_api_result.status_code,
                             }
-                            Logs(door=door, card=card, personnel=personnel, status=False, message=reddedildi, reason=yasakli_kapi + ' Yöneticiye SMS gönderildi.').save()
+                            Logs(door=door, card=card, personnel=personnel, status=False, message=reddedildi, reason=yasakli_kapi).save()
                         elif Cards.objects.filter(identity=card_identity, unauthorized_doors__in=door_id).count() > 0:
                             res = {
                                 'status': False,

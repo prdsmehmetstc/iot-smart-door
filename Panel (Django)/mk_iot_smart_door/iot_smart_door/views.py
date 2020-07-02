@@ -132,7 +132,6 @@ def api_control(request):
 
         door_id = request.GET.get('door_id', False)
         card_identity = request.GET.get('card_identity', False)
-        phonenumber = '05413190119'
         now = time.strftime("%H:%M %Y-%m-%d")
 
         if door_id and card_identity:

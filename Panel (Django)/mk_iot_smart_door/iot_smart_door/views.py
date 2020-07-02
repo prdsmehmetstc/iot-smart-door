@@ -154,7 +154,6 @@ def api_control(request):
                                 'personnel_name': str(personnel),
                                 'message': reddedildi,
                                 'reason': yasakli_kapi,
-                                'sms_status_code': sms_api_result.status_code,
                             }
                             Logs(door=door, card=card, personnel=personnel, status=False, message=reddedildi, reason=yasakli_kapi).save()
                         elif Cards.objects.filter(identity=card_identity, unauthorized_doors__in=door_id).count() > 0:
